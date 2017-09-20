@@ -1,0 +1,1313 @@
+
+out.elf:     file format elf32-tradlittlemips
+
+
+Disassembly of section .config_BFC02FF0:
+
+bfc02ff0 <__config_BFC02FF0>:
+bfc02ff0:	ff ff fe fa                                         ....
+
+Disassembly of section .config_BFC02FF4:
+
+bfc02ff4 <__config_BFC02FF4>:
+bfc02ff4:	d9 79 f8 ff                                         .y..
+
+Disassembly of section .config_BFC02FF8:
+
+bfc02ff8 <__config_BFC02FF8>:
+bfc02ff8:	db ce 6c ff                                         ..l.
+
+Disassembly of section .config_BFC02FFC:
+
+bfc02ffc <__config_BFC02FFC>:
+bfc02ffc:	ff ff ff 7e                                         ...~
+
+Disassembly of section .reset:
+
+bd001970 <_reset>:
+bd001970:	0f40065e 	jal	bd001978 <_startup>
+bd001974:	00000000 	nop
+
+bd001978 <_startup>:
+bd001978:	401a6000 	mfc0	k0,c0_status
+bd00197c:	7f5a04c0 	ext	k0,k0,0x13,0x1
+bd001980:	13400005 	beqz	k0,bd001998 <_no_nmi>
+bd001984:	00000000 	nop
+bd001988:	3c1a9d00 	lui	k0,0x9d00
+bd00198c:	275a25c0 	addiu	k0,k0,9664
+bd001990:	03400008 	jr	k0
+bd001994:	00000000 	nop
+
+bd001998 <_no_nmi>:
+bd001998:	3c1da002 	lui	sp,0xa002
+bd00199c:	27bdfff8 	addiu	sp,sp,-8
+bd0019a0:	3c1ca000 	lui	gp,0xa000
+bd0019a4:	279c7ff0 	addiu	gp,gp,32752
+bd0019a8:	40096002 	mfc0	t1,c0_srsctl
+bd0019ac:	01205820 	add	t3,t1,zero
+bd0019b0:	7d2a1e80 	ext	t2,t1,0x1a,0x4
+bd0019b4:	7d494984 	ins	t1,t2,0x6,0x4
+bd0019b8:	40896002 	mtc0	t1,c0_srsctl
+bd0019bc:	000000c0 	ehb
+bd0019c0:	41dce000 	wrpgpr	gp,gp
+bd0019c4:	408b6002 	mtc0	t3,c0_srsctl
+bd0019c8:	000000c0 	ehb
+bd0019cc:	3c089d00 	lui	t0,0x9d00
+bd0019d0:	250825e8 	addiu	t0,t0,9704
+bd0019d4:	0100f809 	jalr	t0
+bd0019d8:	00000000 	nop
+bd0019dc:	3c08a000 	lui	t0,0xa000
+bd0019e0:	25080000 	addiu	t0,t0,0
+bd0019e4:	3c09a000 	lui	t1,0xa000
+bd0019e8:	25290010 	addiu	t1,t1,16
+bd0019ec:	10000006 	b	bd001a08 <_bss_check>
+bd0019f0:	00000000 	nop
+
+bd0019f4 <_bss_init>:
+bd0019f4:	ad000000 	sw	zero,0(t0)
+bd0019f8:	ad000004 	sw	zero,4(t0)
+bd0019fc:	ad000008 	sw	zero,8(t0)
+bd001a00:	ad00000c 	sw	zero,12(t0)
+bd001a04:	25080010 	addiu	t0,t0,16
+
+bd001a08 <_bss_check>:
+bd001a08:	0109082b 	sltu	at,t0,t1
+bd001a0c:	1420fff9 	bnez	at,bd0019f4 <_bss_init>
+bd001a10:	00000000 	nop
+
+bd001a14 <_dinit_init>:
+bd001a14:	3c089d00 	lui	t0,0x9d00
+bd001a18:	250825d8 	addiu	t0,t0,9688
+bd001a1c:	8d090000 	lw	t1,0(t0)
+bd001a20:	11200018 	beqz	t1,bd001a84 <_dinit_end+0x18>
+bd001a24:	25080004 	addiu	t0,t0,4
+bd001a28:	8d0a0000 	lw	t2,0(t0)
+bd001a2c:	25080004 	addiu	t0,t0,4
+bd001a30:	8d0b0000 	lw	t3,0(t0)
+bd001a34:	11600009 	beqz	t3,bd001a5c <_dinit_clear>
+bd001a38:	25080004 	addiu	t0,t0,4
+
+bd001a3c <_dinit_copy>:
+bd001a3c:	910c0000 	lbu	t4,0(t0)
+bd001a40:	254affff 	addiu	t2,t2,-1
+bd001a44:	25080001 	addiu	t0,t0,1
+bd001a48:	a12c0000 	sb	t4,0(t1)
+bd001a4c:	1540fffb 	bnez	t2,bd001a3c <_dinit_copy>
+bd001a50:	25290001 	addiu	t1,t1,1
+bd001a54:	10000005 	b	bd001a6c <_dinit_end>
+bd001a58:	00000000 	nop
+
+bd001a5c <_dinit_clear>:
+bd001a5c:	a1200000 	sb	zero,0(t1)
+bd001a60:	254affff 	addiu	t2,t2,-1
+bd001a64:	1540fffd 	bnez	t2,bd001a5c <_dinit_clear>
+bd001a68:	25290001 	addiu	t1,t1,1
+
+bd001a6c <_dinit_end>:
+bd001a6c:	25080003 	addiu	t0,t0,3
+bd001a70:	240afffc 	li	t2,-4
+bd001a74:	01484024 	and	t0,t2,t0
+bd001a78:	8d090000 	lw	t1,0(t0)
+bd001a7c:	1520ffe7 	bnez	t1,bd001a1c <_dinit_init+0x8>
+bd001a80:	00000000 	nop
+bd001a84:	3c090000 	lui	t1,0x0
+bd001a88:	25290000 	addiu	t1,t1,0
+bd001a8c:	11200010 	beqz	t1,bd001ad0 <_ramfunc_done>
+bd001a90:	00000000 	nop
+bd001a94:	3c090002 	lui	t1,0x2
+bd001a98:	25290000 	addiu	t1,t1,0
+bd001a9c:	3c0abf88 	lui	t2,0xbf88
+bd001aa0:	254a2010 	addiu	t2,t2,8208
+bd001aa4:	ad490000 	sw	t1,0(t2)
+bd001aa8:	3c090002 	lui	t1,0x2
+bd001aac:	25290000 	addiu	t1,t1,0
+bd001ab0:	3c0abf88 	lui	t2,0xbf88
+bd001ab4:	254a2020 	addiu	t2,t2,8224
+bd001ab8:	ad490000 	sw	t1,0(t2)
+bd001abc:	3c090002 	lui	t1,0x2
+bd001ac0:	25290000 	addiu	t1,t1,0
+bd001ac4:	3c0abf88 	lui	t2,0xbf88
+bd001ac8:	254a2030 	addiu	t2,t2,8240
+bd001acc:	ad490000 	sw	t1,0(t2)
+
+bd001ad0 <_ramfunc_done>:
+bd001ad0:	40804800 	mtc0	zero,c0_count
+bd001ad4:	240affff 	li	t2,-1
+bd001ad8:	408a5800 	mtc0	t2,c0_compare
+bd001adc:	3c080040 	lui	t0,0x40
+bd001ae0:	400a6000 	mfc0	t2,c0_status
+bd001ae4:	010a5025 	or	t2,t0,t2
+bd001ae8:	408a6000 	mtc0	t2,c0_status
+bd001aec:	3c099d00 	lui	t1,0x9d00
+bd001af0:	25290000 	addiu	t1,t1,0
+bd001af4:	000000c0 	ehb
+bd001af8:	40897801 	mtc0	t1,c0_ebase
+bd001afc:	3c090000 	lui	t1,0x0
+bd001b00:	25290001 	addiu	t1,t1,1
+bd001b04:	240a0000 	li	t2,0
+bd001b08:	7d2a4944 	ins	t2,t1,0x5,0x5
+bd001b0c:	408a6001 	mtc0	t2,c0_intctl
+bd001b10:	3c090080 	lui	t1,0x80
+bd001b14:	40896800 	mtc0	t1,c0_cause
+bd001b18:	40088000 	mfc0	t0,c0_config
+bd001b1c:	7d090580 	ext	t1,t0,0x16,0x1
+bd001b20:	00094c40 	sll	t1,t1,0x11
+bd001b24:	40086000 	mfc0	t0,c0_status
+bd001b28:	3c010058 	lui	at,0x58
+bd001b2c:	01014024 	and	t0,t0,at
+bd001b30:	01284025 	or	t0,t1,t0
+bd001b34:	40886000 	mtc0	t0,c0_status
+bd001b38:	000000c0 	ehb
+bd001b3c:	3c089d00 	lui	t0,0x9d00
+bd001b40:	250825f0 	addiu	t0,t0,9712
+bd001b44:	0100f809 	jalr	t0
+bd001b48:	00000000 	nop
+bd001b4c:	40086000 	mfc0	t0,c0_status
+bd001b50:	3c01ffbf 	lui	at,0xffbf
+bd001b54:	3421ffff 	ori	at,at,0xffff
+bd001b58:	01014024 	and	t0,t0,at
+bd001b5c:	40886000 	mtc0	t0,c0_status
+bd001b60:	30840000 	andi	a0,a0,0x0
+bd001b64:	30a50000 	andi	a1,a1,0x0
+bd001b68:	3c089d00 	lui	t0,0x9d00
+bd001b6c:	25082450 	addiu	t0,t0,9296
+bd001b70:	01000008 	jr	t0
+bd001b74:	00000000 	nop
+
+Disassembly of section .bev_excpt:
+
+bd001cf0 <_bev_exception>:
+bd001cf0:	3c1a9d00 	lui	k0,0x9d00
+bd001cf4:	275a24a4 	addiu	k0,k0,9380
+bd001cf8:	03400008 	jr	k0
+bd001cfc:	00000000 	nop
+
+Disassembly of section .app_excpt:
+
+9d000180 <_gen_exception>:
+9d000180:	3c1a9d00 	lui	k0,0x9d00
+9d000184:	275a2374 	addiu	k0,k0,9076
+9d000188:	03400008 	jr	k0
+9d00018c:	00000000 	nop
+
+Disassembly of section .vector_0:
+
+9d000200 <__vector_dispatch_0>:
+9d000200:	0b40094d 	j	9d002534 <.LFE0>
+9d000204:	00000000 	nop
+
+Disassembly of section .vector_1:
+
+9d000220 <__vector_dispatch_1>:
+9d000220:	0b40094d 	j	9d002534 <.LFE0>
+9d000224:	00000000 	nop
+
+Disassembly of section .vector_2:
+
+9d000240 <__vector_dispatch_2>:
+9d000240:	0b40094d 	j	9d002534 <.LFE0>
+9d000244:	00000000 	nop
+
+Disassembly of section .vector_3:
+
+9d000260 <__vector_dispatch_3>:
+9d000260:	0b40094d 	j	9d002534 <.LFE0>
+9d000264:	00000000 	nop
+
+Disassembly of section .vector_4:
+
+9d000280 <__vector_dispatch_4>:
+9d000280:	0b40094d 	j	9d002534 <.LFE0>
+9d000284:	00000000 	nop
+
+Disassembly of section .vector_5:
+
+9d0002a0 <__vector_dispatch_5>:
+9d0002a0:	0b40094d 	j	9d002534 <.LFE0>
+9d0002a4:	00000000 	nop
+
+Disassembly of section .vector_6:
+
+9d0002c0 <__vector_dispatch_6>:
+9d0002c0:	0b40094d 	j	9d002534 <.LFE0>
+9d0002c4:	00000000 	nop
+
+Disassembly of section .vector_7:
+
+9d0002e0 <__vector_dispatch_7>:
+9d0002e0:	0b40094d 	j	9d002534 <.LFE0>
+9d0002e4:	00000000 	nop
+
+Disassembly of section .vector_8:
+
+9d000300 <__vector_dispatch_8>:
+9d000300:	0b40094d 	j	9d002534 <.LFE0>
+9d000304:	00000000 	nop
+
+Disassembly of section .vector_9:
+
+9d000320 <__vector_dispatch_9>:
+9d000320:	0b40094d 	j	9d002534 <.LFE0>
+9d000324:	00000000 	nop
+
+Disassembly of section .vector_10:
+
+9d000340 <__vector_dispatch_10>:
+9d000340:	0b40094d 	j	9d002534 <.LFE0>
+9d000344:	00000000 	nop
+
+Disassembly of section .vector_11:
+
+9d000360 <__vector_dispatch_11>:
+9d000360:	0b40094d 	j	9d002534 <.LFE0>
+9d000364:	00000000 	nop
+
+Disassembly of section .vector_12:
+
+9d000380 <__vector_dispatch_12>:
+9d000380:	0b40094d 	j	9d002534 <.LFE0>
+9d000384:	00000000 	nop
+
+Disassembly of section .vector_13:
+
+9d0003a0 <__vector_dispatch_13>:
+9d0003a0:	0b40094d 	j	9d002534 <.LFE0>
+9d0003a4:	00000000 	nop
+
+Disassembly of section .vector_14:
+
+9d0003c0 <__vector_dispatch_14>:
+9d0003c0:	0b40094d 	j	9d002534 <.LFE0>
+9d0003c4:	00000000 	nop
+
+Disassembly of section .vector_15:
+
+9d0003e0 <__vector_dispatch_15>:
+9d0003e0:	0b40094d 	j	9d002534 <.LFE0>
+9d0003e4:	00000000 	nop
+
+Disassembly of section .vector_16:
+
+9d000400 <__vector_dispatch_16>:
+9d000400:	0b40094d 	j	9d002534 <.LFE0>
+9d000404:	00000000 	nop
+
+Disassembly of section .vector_17:
+
+9d000420 <__vector_dispatch_17>:
+9d000420:	0b40094d 	j	9d002534 <.LFE0>
+9d000424:	00000000 	nop
+
+Disassembly of section .vector_18:
+
+9d000440 <__vector_dispatch_18>:
+9d000440:	0b40094d 	j	9d002534 <.LFE0>
+9d000444:	00000000 	nop
+
+Disassembly of section .vector_19:
+
+9d000460 <__vector_dispatch_19>:
+9d000460:	0b40094d 	j	9d002534 <.LFE0>
+9d000464:	00000000 	nop
+
+Disassembly of section .vector_20:
+
+9d000480 <__vector_dispatch_20>:
+9d000480:	0b40094d 	j	9d002534 <.LFE0>
+9d000484:	00000000 	nop
+
+Disassembly of section .vector_21:
+
+9d0004a0 <__vector_dispatch_21>:
+9d0004a0:	0b40094d 	j	9d002534 <.LFE0>
+9d0004a4:	00000000 	nop
+
+Disassembly of section .vector_22:
+
+9d0004c0 <__vector_dispatch_22>:
+9d0004c0:	0b40094d 	j	9d002534 <.LFE0>
+9d0004c4:	00000000 	nop
+
+Disassembly of section .vector_23:
+
+9d0004e0 <__vector_dispatch_23>:
+9d0004e0:	0b40094d 	j	9d002534 <.LFE0>
+9d0004e4:	00000000 	nop
+
+Disassembly of section .vector_24:
+
+9d000500 <__vector_dispatch_24>:
+9d000500:	0b40094d 	j	9d002534 <.LFE0>
+9d000504:	00000000 	nop
+
+Disassembly of section .vector_25:
+
+9d000520 <__vector_dispatch_25>:
+9d000520:	0b40094d 	j	9d002534 <.LFE0>
+9d000524:	00000000 	nop
+
+Disassembly of section .vector_26:
+
+9d000540 <__vector_dispatch_26>:
+9d000540:	0b40079d 	j	9d001e74 <CNISR>
+9d000544:	00000000 	nop
+
+Disassembly of section .vector_27:
+
+9d000560 <__vector_dispatch_27>:
+9d000560:	0b40094d 	j	9d002534 <.LFE0>
+9d000564:	00000000 	nop
+
+Disassembly of section .vector_28:
+
+9d000580 <__vector_dispatch_28>:
+9d000580:	0b40094d 	j	9d002534 <.LFE0>
+9d000584:	00000000 	nop
+
+Disassembly of section .vector_29:
+
+9d0005a0 <__vector_dispatch_29>:
+9d0005a0:	0b40094d 	j	9d002534 <.LFE0>
+9d0005a4:	00000000 	nop
+
+Disassembly of section .vector_30:
+
+9d0005c0 <__vector_dispatch_30>:
+9d0005c0:	0b40094d 	j	9d002534 <.LFE0>
+9d0005c4:	00000000 	nop
+
+Disassembly of section .vector_31:
+
+9d0005e0 <__vector_dispatch_31>:
+9d0005e0:	0b40094d 	j	9d002534 <.LFE0>
+9d0005e4:	00000000 	nop
+
+Disassembly of section .vector_32:
+
+9d000600 <__vector_dispatch_32>:
+9d000600:	0b40094d 	j	9d002534 <.LFE0>
+9d000604:	00000000 	nop
+
+Disassembly of section .vector_33:
+
+9d000620 <__vector_dispatch_33>:
+9d000620:	0b40094d 	j	9d002534 <.LFE0>
+9d000624:	00000000 	nop
+
+Disassembly of section .vector_34:
+
+9d000640 <__vector_dispatch_34>:
+9d000640:	0b40094d 	j	9d002534 <.LFE0>
+9d000644:	00000000 	nop
+
+Disassembly of section .vector_35:
+
+9d000660 <__vector_dispatch_35>:
+9d000660:	0b40094d 	j	9d002534 <.LFE0>
+9d000664:	00000000 	nop
+
+Disassembly of section .vector_36:
+
+9d000680 <__vector_dispatch_36>:
+9d000680:	0b40094d 	j	9d002534 <.LFE0>
+9d000684:	00000000 	nop
+
+Disassembly of section .vector_37:
+
+9d0006a0 <__vector_dispatch_37>:
+9d0006a0:	0b40094d 	j	9d002534 <.LFE0>
+9d0006a4:	00000000 	nop
+
+Disassembly of section .vector_38:
+
+9d0006c0 <__vector_dispatch_38>:
+9d0006c0:	0b40094d 	j	9d002534 <.LFE0>
+9d0006c4:	00000000 	nop
+
+Disassembly of section .vector_39:
+
+9d0006e0 <__vector_dispatch_39>:
+9d0006e0:	0b40094d 	j	9d002534 <.LFE0>
+9d0006e4:	00000000 	nop
+
+Disassembly of section .vector_40:
+
+9d000700 <__vector_dispatch_40>:
+9d000700:	0b40094d 	j	9d002534 <.LFE0>
+9d000704:	00000000 	nop
+
+Disassembly of section .vector_41:
+
+9d000720 <__vector_dispatch_41>:
+9d000720:	0b40094d 	j	9d002534 <.LFE0>
+9d000724:	00000000 	nop
+
+Disassembly of section .vector_42:
+
+9d000740 <__vector_dispatch_42>:
+9d000740:	0b40094d 	j	9d002534 <.LFE0>
+9d000744:	00000000 	nop
+
+Disassembly of section .vector_43:
+
+9d000760 <__vector_dispatch_43>:
+9d000760:	0b40094d 	j	9d002534 <.LFE0>
+9d000764:	00000000 	nop
+
+Disassembly of section .vector_44:
+
+9d000780 <__vector_dispatch_44>:
+9d000780:	0b40094d 	j	9d002534 <.LFE0>
+9d000784:	00000000 	nop
+
+Disassembly of section .vector_45:
+
+9d0007a0 <__vector_dispatch_45>:
+9d0007a0:	0b40094d 	j	9d002534 <.LFE0>
+9d0007a4:	00000000 	nop
+
+Disassembly of section .vector_46:
+
+9d0007c0 <__vector_dispatch_46>:
+9d0007c0:	0b40094d 	j	9d002534 <.LFE0>
+9d0007c4:	00000000 	nop
+
+Disassembly of section .vector_47:
+
+9d0007e0 <__vector_dispatch_47>:
+9d0007e0:	0b40094d 	j	9d002534 <.LFE0>
+9d0007e4:	00000000 	nop
+
+Disassembly of section .vector_48:
+
+9d000800 <__vector_dispatch_48>:
+9d000800:	0b40094d 	j	9d002534 <.LFE0>
+9d000804:	00000000 	nop
+
+Disassembly of section .vector_49:
+
+9d000820 <__vector_dispatch_49>:
+9d000820:	0b40094d 	j	9d002534 <.LFE0>
+9d000824:	00000000 	nop
+
+Disassembly of section .vector_50:
+
+9d000840 <__vector_dispatch_50>:
+9d000840:	0b40094d 	j	9d002534 <.LFE0>
+9d000844:	00000000 	nop
+
+Disassembly of section .vector_51:
+
+9d000860 <__vector_dispatch_51>:
+9d000860:	0b40094d 	j	9d002534 <.LFE0>
+9d000864:	00000000 	nop
+
+Disassembly of section ._debug_exception:
+
+bfc00480 <__DbgExecReturn>:
+bfc00480:	409bf800 	mtc0	k1,c0_desave
+bfc00484:	000000c0 	ehb
+bfc00488:	3c1b9d00 	lui	k1,0x9d00
+bfc0048c:	277b257c 	addiu	k1,k1,9596
+bfc00490:	13600002 	beqz	k1,bfc0049c <__DbgExecReturn+0x1c>
+bfc00494:	00000000 	nop
+bfc00498:	409bc000 	mtc0	k1,c0_depc
+bfc0049c:	401bf800 	mfc0	k1,c0_desave
+bfc004a0:	000000c0 	ehb
+bfc004a4:	4200001f 	deret
+bfc004a8:	00000000 	nop
+
+Disassembly of section .text:
+
+9d001e00 <adc_sample_convert>:
+#define DELAY_TICKS 20000000 // delay 1/2 sec, 20 M core ticks, between messages
+
+#define PERIOD 1024        // this is PR2 + 1
+#define MAXVOLTAGE 3.3     // corresponds to max high voltage output of PIC32
+
+unsigned int adc_sample_convert(int pin) { // sample & convert the value on the given 
+9d001e00:	27bdfff8 	addiu	sp,sp,-8
+9d001e04:	afbf0004 	sw	ra,4(sp)
+                                           // adc pin the pin should be configured as an 
+                                           // analog input in AD1PCFG
+    unsigned int elapsed = 0, finish_time = 0;
+    AD1CHSbits.CH0SA = pin;                // connect chosen pin to MUXA for sampling
+9d001e08:	3c02bf81 	lui	v0,0xbf81
+9d001e0c:	8c439040 	lw	v1,-28608(v0)
+9d001e10:	7c839c04 	ins	v1,a0,0x10,0x4
+9d001e14:	ac439040 	sw	v1,-28608(v0)
+    AD1CON1bits.SAMP = 1;                  // start sampling
+9d001e18:	3c02bf81 	lui	v0,0xbf81
+9d001e1c:	94439000 	lhu	v1,-28672(v0)
+9d001e20:	24040001 	li	a0,1
+9d001e24:	7c830844 	ins	v1,a0,0x1,0x1
+9d001e28:	a4439000 	sh	v1,-28672(v0)
+    elapsed = _CP0_GET_COUNT();
+9d001e2c:	40034800 	mfc0	v1,c0_count
+    finish_time = elapsed + SAMPLE_TIME;
+9d001e30:	2463000a 	addiu	v1,v1,10
+    while (_CP0_GET_COUNT() < finish_time) { 
+9d001e34:	40024800 	mfc0	v0,c0_count
+9d001e38:	0043102b 	sltu	v0,v0,v1
+9d001e3c:	1440fffd 	bnez	v0,9d001e34 <adc_sample_convert+0x34>
+9d001e40:	3c02bf81 	lui	v0,0xbf81
+      ;                                   // sample for more than 250 ns
+    }
+    AD1CON1bits.SAMP = 0;                 // stop sampling and start converting
+9d001e44:	94439000 	lhu	v1,-28672(v0)
+9d001e48:	7c030844 	ins	v1,zero,0x1,0x1
+9d001e4c:	a4439000 	sh	v1,-28672(v0)
+    while (!AD1CON1bits.DONE) {
+9d001e50:	00401821 	move	v1,v0
+9d001e54:	8c629000 	lw	v0,-28672(v1)
+9d001e58:	30420001 	andi	v0,v0,0x1
+9d001e5c:	1040fffd 	beqz	v0,9d001e54 <adc_sample_convert+0x54>
+9d001e60:	3c02bf81 	lui	v0,0xbf81
+      ;                                   // wait for the conversion process to finish
+    }
+    return ADC1BUF0;                      // read the buffer with the result
+9d001e64:	8c429070 	lw	v0,-28560(v0)
+}
+9d001e68:	8fbf0004 	lw	ra,4(sp)
+9d001e6c:	03e00008 	jr	ra
+9d001e70:	27bd0008 	addiu	sp,sp,8
+
+9d001e74 <CNISR>:
+
+volatile unsigned int oldB = 0, oldF = 0, newB = 0, newF = 0; // save port values
+
+void __ISR(_CHANGE_NOTICE_VECTOR, IPL3SOFT) CNISR(void) { // INT step 1
+9d001e74:	415de800 	rdpgpr	sp,sp
+9d001e78:	401a7000 	mfc0	k0,c0_epc
+9d001e7c:	401b6000 	mfc0	k1,c0_status
+9d001e80:	27bdffe0 	addiu	sp,sp,-32
+9d001e84:	afba001c 	sw	k0,28(sp)
+9d001e88:	401a6002 	mfc0	k0,c0_srsctl
+9d001e8c:	afbb0018 	sw	k1,24(sp)
+9d001e90:	afba0014 	sw	k0,20(sp)
+9d001e94:	7c1b7844 	ins	k1,zero,0x1,0xf
+9d001e98:	377b0c00 	ori	k1,k1,0xc00
+9d001e9c:	409b6000 	mtc0	k1,c0_status
+9d001ea0:	afa4000c 	sw	a0,12(sp)
+9d001ea4:	afa30008 	sw	v1,8(sp)
+9d001ea8:	afa20004 	sw	v0,4(sp)
+  newB = PORTB;           // since pins on port B and F are being monitored 
+9d001eac:	3c02bf88 	lui	v0,0xbf88
+9d001eb0:	8c426050 	lw	v0,24656(v0)
+9d001eb4:	af828014 	sw	v0,-32748(gp)
+  newF = PORTF;           // by CN, must read both to allow continued functioning
+9d001eb8:	3c02bf88 	lui	v0,0xbf88
+9d001ebc:	8c426150 	lw	v0,24912(v0)
+9d001ec0:	af828010 	sw	v0,-32752(gp)
+                          // ... do something here with oldB, oldF, newB, newF ...
+  oldB = newB;            // save the current values for future use
+9d001ec4:	8f828014 	lw	v0,-32748(gp)
+9d001ec8:	af82801c 	sw	v0,-32740(gp)
+  oldF = newF;
+9d001ecc:	8f828010 	lw	v0,-32752(gp)
+9d001ed0:	af828018 	sw	v0,-32744(gp)
+  LATBINV = 0xF0;         // toggle buffered RB4, RB5 and open-drain RB6, RB7
+9d001ed4:	240300f0 	li	v1,240
+9d001ed8:	3c02bf88 	lui	v0,0xbf88
+9d001edc:	ac43606c 	sw	v1,24684(v0)
+  NU32_LED1 = !NU32_LED1; // toggle LED1
+9d001ee0:	3c02bf88 	lui	v0,0xbf88
+9d001ee4:	8c446160 	lw	a0,24928(v0)
+9d001ee8:	38840001 	xori	a0,a0,0x1
+9d001eec:	90436160 	lbu	v1,24928(v0)
+9d001ef0:	7c830004 	ins	v1,a0,0x0,0x1
+9d001ef4:	a0436160 	sb	v1,24928(v0)
+  IFS1bits.CNIF = 0;      // clear the interrupt flag
+9d001ef8:	3c02bf88 	lui	v0,0xbf88
+9d001efc:	8c431040 	lw	v1,4160(v0)
+9d001f00:	7c030004 	ins	v1,zero,0x0,0x1
+9d001f04:	ac431040 	sw	v1,4160(v0)
+}
+9d001f08:	8fa4000c 	lw	a0,12(sp)
+9d001f0c:	8fa30008 	lw	v1,8(sp)
+9d001f10:	8fa20004 	lw	v0,4(sp)
+9d001f14:	41606000 	di
+9d001f18:	000000c0 	ehb
+9d001f1c:	8fba001c 	lw	k0,28(sp)
+9d001f20:	8fbb0018 	lw	k1,24(sp)
+9d001f24:	409a7000 	mtc0	k0,c0_epc
+9d001f28:	8fba0014 	lw	k0,20(sp)
+9d001f2c:	27bd0020 	addiu	sp,sp,32
+9d001f30:	409a6002 	mtc0	k0,c0_srsctl
+9d001f34:	41dde800 	wrpgpr	sp,sp
+9d001f38:	409b6000 	mtc0	k1,c0_status
+9d001f3c:	42000018 	eret
+
+9d001f40 <main>:
+
+int main(void) {
+9d001f40:	27bdffd0 	addiu	sp,sp,-48
+9d001f44:	afbf002c 	sw	ra,44(sp)
+9d001f48:	afb60028 	sw	s6,40(sp)
+9d001f4c:	afb50024 	sw	s5,36(sp)
+9d001f50:	afb40020 	sw	s4,32(sp)
+9d001f54:	afb3001c 	sw	s3,28(sp)
+9d001f58:	afb20018 	sw	s2,24(sp)
+9d001f5c:	afb10014 	sw	s1,20(sp)
+  unsigned int sample_D1 = 0, sample_D2 = 0, sample_D3 = 0, elapsed = 0;
+  char msg[100] = {};
+	
+  NU32_Startup(); // cache on, min flash wait, interrupts on, LED/button init, UART init
+9d001f60:	0f40086c 	jal	9d0021b0 <NU32_Startup>
+9d001f64:	afb00010 	sw	s0,16(sp)
+  AD1PCFG = 0x00FF;       // set B8-B15 as analog in, 0-7 as digital pins
+9d001f68:	240300ff 	li	v1,255
+9d001f6c:	3c02bf81 	lui	v0,0xbf81
+9d001f70:	ac439060 	sw	v1,-28576(v0)
+  TRISB = 0xFF0F;         // set B4-B7 as digital outputs, 0-3 as digital inputs
+9d001f74:	3403ff0f 	li	v1,0xff0f
+9d001f78:	3c02bf88 	lui	v0,0xbf88
+9d001f7c:	ac436040 	sw	v1,24640(v0)
+  ODCBSET = 0x00C0;       // set ODCB bits 6 and 7, so RB6, RB7 are open drain outputs
+9d001f80:	240300c0 	li	v1,192
+9d001f84:	3c02bf88 	lui	v0,0xbf88
+9d001f88:	ac436078 	sw	v1,24696(v0)
+  CNPUEbits.CNPUE2 = 1;   // CN2/RB0 input has internal pull-up 
+9d001f8c:	3c02bf88 	lui	v0,0xbf88
+9d001f90:	8c4461e0 	lw	a0,25056(v0)
+9d001f94:	24030001 	li	v1,1
+9d001f98:	7c641084 	ins	a0,v1,0x2,0x1
+9d001f9c:	ac4461e0 	sw	a0,25056(v0)
+  CNPUEbits.CNPUE3 = 1;   // CN3/RB1 input has internal pull-up
+9d001fa0:	8c4461e0 	lw	a0,25056(v0)
+9d001fa4:	7c6418c4 	ins	a0,v1,0x3,0x1
+9d001fa8:	ac4461e0 	sw	a0,25056(v0)
+  CNPUEbits.CNPUE17 = 1;  // CN17/RF4 input has internal pull-up
+9d001fac:	8c4461e0 	lw	a0,25056(v0)
+9d001fb0:	7c648c44 	ins	a0,v1,0x11,0x1
+9d001fb4:	ac4461e0 	sw	a0,25056(v0)
+                          // due to errata internal pull-ups may not result in a logic 1
+                          
+  oldB = PORTB;           // bits 0-3 are relevant input
+9d001fb8:	3c02bf88 	lui	v0,0xbf88
+9d001fbc:	8c426050 	lw	v0,24656(v0)
+9d001fc0:	af82801c 	sw	v0,-32740(gp)
+  oldF = PORTF;           // pins of port F are inputs, by default
+9d001fc4:	3c02bf88 	lui	v0,0xbf88
+9d001fc8:	8c426150 	lw	v0,24912(v0)
+9d001fcc:	af828018 	sw	v0,-32744(gp)
+  LATB = 0x0050;          // RB4 is buffered high, RB5 is buffered low,
+9d001fd0:	24030050 	li	v1,80
+9d001fd4:	3c02bf88 	lui	v0,0xbf88
+9d001fd8:	ac436060 	sw	v1,24672(v0)
+                          // RB6 is floating open drain (could be pulled to 3.3 V by
+                          // external pull-up resistor), RB7 is low
+
+  __builtin_disable_interrupts(); // step 1: disable interrupts
+9d001fdc:	41626000 	di	v0
+9d001fe0:	000000c0 	ehb
+  CNCONbits.ON = 1;               // step 2: configure peripheral: turn on CN
+9d001fe4:	3c02bf88 	lui	v0,0xbf88
+9d001fe8:	944461c0 	lhu	a0,25024(v0)
+9d001fec:	24030001 	li	v1,1
+9d001ff0:	7c647bc4 	ins	a0,v1,0xf,0x1
+9d001ff4:	a44461c0 	sh	a0,25024(v0)
+  CNENbits.CNEN2 = 1;             // Use CN2/RB0 as a change notification
+9d001ff8:	3c02bf88 	lui	v0,0xbf88
+9d001ffc:	8c4461d0 	lw	a0,25040(v0)
+9d002000:	7c641084 	ins	a0,v1,0x2,0x1
+9d002004:	ac4461d0 	sw	a0,25040(v0)
+  CNENbits.CNEN17 = 1;            // Use CN17/RF4 as a change notification
+9d002008:	8c4461d0 	lw	a0,25040(v0)
+9d00200c:	7c648c44 	ins	a0,v1,0x11,0x1
+9d002010:	ac4461d0 	sw	a0,25040(v0)
+  CNENbits.CNEN18 = 1;            // Use CN18/RF5 as a change notification
+9d002014:	8c4461d0 	lw	a0,25040(v0)
+9d002018:	7c649484 	ins	a0,v1,0x12,0x1
+9d00201c:	ac4461d0 	sw	a0,25040(v0)
+  
+  IPC6bits.CNIP = 3;              // step 3: set interrupt priority
+9d002020:	3c02bf88 	lui	v0,0xbf88
+9d002024:	8c4410f0 	lw	a0,4336(v0)
+9d002028:	24050003 	li	a1,3
+9d00202c:	7ca4a484 	ins	a0,a1,0x12,0x3
+9d002030:	ac4410f0 	sw	a0,4336(v0)
+  IPC6bits.CNIS = 2;              // step 4: set interrupt subpriority
+9d002034:	8c4410f0 	lw	a0,4336(v0)
+9d002038:	24050002 	li	a1,2
+9d00203c:	7ca48c04 	ins	a0,a1,0x10,0x2
+9d002040:	ac4410f0 	sw	a0,4336(v0)
+  IFS1bits.CNIF = 0;              // step 5: clear the interrupt flag
+9d002044:	3c02bf88 	lui	v0,0xbf88
+9d002048:	8c441040 	lw	a0,4160(v0)
+9d00204c:	7c040004 	ins	a0,zero,0x0,0x1
+9d002050:	ac441040 	sw	a0,4160(v0)
+  IEC1bits.CNIE = 1;              // step 6: enable the CN interrupt
+9d002054:	3c02bf88 	lui	v0,0xbf88
+9d002058:	8c441070 	lw	a0,4208(v0)
+9d00205c:	7c640004 	ins	a0,v1,0x0,0x1
+9d002060:	ac441070 	sw	a0,4208(v0)
+  __builtin_enable_interrupts();  // step 7: CPU enabled for mvec interrupts
+9d002064:	41626020 	ei	v0
+
+
+//ADC
+  AD1PCFGbits.PCFG8 = 0;                 // AN14 is an adc pin
+9d002068:	3c02bf81 	lui	v0,0xbf81
+9d00206c:	94439060 	lhu	v1,-28576(v0)
+9d002070:	7c034204 	ins	v1,zero,0x8,0x1
+9d002074:	a4439060 	sh	v1,-28576(v0)
+  AD1PCFGbits.PCFG9 = 0;                 // AN15 is an adc pin
+9d002078:	94439060 	lhu	v1,-28576(v0)
+9d00207c:	7c034a44 	ins	v1,zero,0x9,0x1
+9d002080:	a4439060 	sh	v1,-28576(v0)
+  AD1PCFGbits.PCFG10 = 0;
+9d002084:	94439060 	lhu	v1,-28576(v0)
+9d002088:	7c035284 	ins	v1,zero,0xa,0x1
+9d00208c:	a4439060 	sh	v1,-28576(v0)
+  AD1CON3bits.ADCS = 2;                   // ADC clock period is Tad = 2*(ADCS+1)*Tpb =
+9d002090:	24030002 	li	v1,2
+9d002094:	3c02bf81 	lui	v0,0xbf81
+9d002098:	a0439020 	sb	v1,-28640(v0)
+                                          //                           2*3*12.5ns = 75ns
+  AD1CON1bits.ADON = 1;                   // turn on A/D converter
+9d00209c:	3c02bf81 	lui	v0,0xbf81
+9d0020a0:	94449000 	lhu	a0,-28672(v0)
+9d0020a4:	24030001 	li	v1,1
+9d0020a8:	7c647bc4 	ins	a0,v1,0xf,0x1
+9d0020ac:	a4449000 	sh	a0,-28672(v0)
+
+//PWM  
+  PR2 = PERIOD - 1;       // Timer2 is OC3's base, PR2 defines PWM frequency, 78.125 kHz
+9d0020b0:	240403ff 	li	a0,1023
+9d0020b4:	3c02bf80 	lui	v0,0xbf80
+9d0020b8:	ac440820 	sw	a0,2080(v0)
+  TMR2 = 0;               // initialize value of Timer2
+9d0020bc:	3c02bf80 	lui	v0,0xbf80
+9d0020c0:	ac400810 	sw	zero,2064(v0)
+  T2CON = 1<<15; // turn Timer2 on, all defaults fine
+9d0020c4:	34048000 	li	a0,0x8000
+9d0020c8:	3c02bf80 	lui	v0,0xbf80
+9d0020cc:	ac440800 	sw	a0,2048(v0)
+  
+  //D1 pin
+  OC2CONbits.OCTSEL = 0;  // use Timer2 for OC2
+9d0020d0:	3c02bf80 	lui	v0,0xbf80
+9d0020d4:	94443200 	lhu	a0,12800(v0)
+9d0020d8:	7c0418c4 	ins	a0,zero,0x3,0x1
+9d0020dc:	a4443200 	sh	a0,12800(v0)
+  OC2CONbits.OCM = 0b110; // PWM mode with fault pin disabled
+9d0020e0:	94453200 	lhu	a1,12800(v0)
+9d0020e4:	24040006 	li	a0,6
+9d0020e8:	7c851004 	ins	a1,a0,0x0,0x3
+9d0020ec:	a4453200 	sh	a1,12800(v0)
+  OC2CONbits.ON = 1;      // Turn OC2 on
+9d0020f0:	94453200 	lhu	a1,12800(v0)
+9d0020f4:	7c657bc4 	ins	a1,v1,0xf,0x1
+9d0020f8:	a4453200 	sh	a1,12800(v0)
+  //D2 pin
+  OC3CONbits.OCTSEL = 0;  // use Timer2 for OC3
+9d0020fc:	3c02bf80 	lui	v0,0xbf80
+9d002100:	94453400 	lhu	a1,13312(v0)
+9d002104:	7c0518c4 	ins	a1,zero,0x3,0x1
+9d002108:	a4453400 	sh	a1,13312(v0)
+  OC3CONbits.OCM = 0b110; // PWM mode with fault pin disabled
+9d00210c:	94453400 	lhu	a1,13312(v0)
+9d002110:	7c851004 	ins	a1,a0,0x0,0x3
+9d002114:	a4453400 	sh	a1,13312(v0)
+  OC3CONbits.ON = 1;      // Turn OC3 on
+9d002118:	94453400 	lhu	a1,13312(v0)
+9d00211c:	7c657bc4 	ins	a1,v1,0xf,0x1
+9d002120:	a4453400 	sh	a1,13312(v0)
+  //D3 pin
+  OC4CONbits.OCTSEL = 0;  // use Timer2 for OC4
+9d002124:	3c02bf80 	lui	v0,0xbf80
+9d002128:	94453600 	lhu	a1,13824(v0)
+9d00212c:	7c0518c4 	ins	a1,zero,0x3,0x1
+9d002130:	a4453600 	sh	a1,13824(v0)
+  OC4CONbits.OCM = 0b110; // PWM mode with fault pin disabled
+9d002134:	94453600 	lhu	a1,13824(v0)
+9d002138:	7c851004 	ins	a1,a0,0x0,0x3
+9d00213c:	a4453600 	sh	a1,13824(v0)
+  OC4CONbits.ON = 1;      // Turn OC4 on
+9d002140:	94443600 	lhu	a0,13824(v0)
+9d002144:	7c647bc4 	ins	a0,v1,0xf,0x1
+9d002148:	a4443600 	sh	a0,13824(v0)
+  
+  while(1) {                      // carriage return and newline
+      sample_D2 = adc_sample_convert(8);
+	  sample_D1 = adc_sample_convert(9);
+	  sample_D3 = adc_sample_convert(10);
+      OC3RS = sample_D2; //Red
+9d00214c:	3c14bf80 	lui	s4,0xbf80
+	  OC2RS = sample_D1; //Blue
+9d002150:	3c13bf80 	lui	s3,0xbf80
+	  OC4RS = sample_D3; //Green
+9d002154:	3c12bf80 	lui	s2,0xbf80
+
+	  if (PORTBbits.RB1 == 0){
+9d002158:	3c15bf88 	lui	s5,0xbf88
+		OC3RS = 0; //Red
+		OC2RS = 1023; //Blue
+9d00215c:	241603ff 	li	s6,1023
+  OC4CONbits.OCTSEL = 0;  // use Timer2 for OC4
+  OC4CONbits.OCM = 0b110; // PWM mode with fault pin disabled
+  OC4CONbits.ON = 1;      // Turn OC4 on
+  
+  while(1) {                      // carriage return and newline
+      sample_D2 = adc_sample_convert(8);
+9d002160:	0f400780 	jal	9d001e00 <adc_sample_convert>
+9d002164:	24040008 	li	a0,8
+9d002168:	00408821 	move	s1,v0
+	  sample_D1 = adc_sample_convert(9);
+9d00216c:	0f400780 	jal	9d001e00 <adc_sample_convert>
+9d002170:	24040009 	li	a0,9
+9d002174:	00408021 	move	s0,v0
+	  sample_D3 = adc_sample_convert(10);
+9d002178:	0f400780 	jal	9d001e00 <adc_sample_convert>
+9d00217c:	2404000a 	li	a0,10
+      OC3RS = sample_D2; //Red
+9d002180:	ae913420 	sw	s1,13344(s4)
+	  OC2RS = sample_D1; //Blue
+9d002184:	ae703220 	sw	s0,12832(s3)
+	  OC4RS = sample_D3; //Green
+9d002188:	ae423620 	sw	v0,13856(s2)
+
+	  if (PORTBbits.RB1 == 0){
+9d00218c:	8ea26050 	lw	v0,24656(s5)
+9d002190:	30420002 	andi	v0,v0,0x2
+9d002194:	1440fff2 	bnez	v0,9d002160 <main+0x220>
+9d002198:	00000000 	nop
+		OC3RS = 0; //Red
+9d00219c:	ae803420 	sw	zero,13344(s4)
+		OC2RS = 1023; //Blue
+9d0021a0:	ae763220 	sw	s6,12832(s3)
+		OC4RS = 0;                           // infinite loop
+9d0021a4:	ae403620 	sw	zero,13856(s2)
+9d0021a8:	0b400858 	j	9d002160 <main+0x220>
+9d0021ac:	00000000 	nop
+
+9d0021b0 <NU32_Startup>:
+
+// Perform startup routines:
+//  Make NU32_LED1 and NU32_LED2 pins outputs (NU32_USER is by default an input)
+//  Initialize the serial port - UART3 (no interrupt) 
+//  Enable interrupts
+void NU32_Startup() {
+9d0021b0:	27bdfff8 	addiu	sp,sp,-8
+9d0021b4:	afbf0004 	sw	ra,4(sp)
+  // disable interrupts
+  __builtin_disable_interrupts();
+9d0021b8:	41626000 	di	v0
+9d0021bc:	000000c0 	ehb
+  // see Chapter 2 "CPU for Devices with M4K Core" of the PIC32 reference manual
+  // most of the other bits have prescribed values
+  // microchip does not provide a _CP0_SET_CONFIG macro, so we directly use
+  // the compiler built-in command _mtc0
+  // to disable cache, use 0xa4210582 
+  __builtin_mtc0(_CP0_CONFIG, _CP0_CONFIG_SELECT, 0xa4210583); 
+9d0021c0:	3c02a421 	lui	v0,0xa421
+9d0021c4:	24420583 	addiu	v0,v0,1411
+9d0021c8:	40828000 	mtc0	v0,c0_config
+9d0021cc:	000000c0 	ehb
+  
+  // set the prefectch cache wait state to 2, as per the
+  // electrical characteristics data sheet
+  CHECONbits.PFMWS = 0x2;   
+9d0021d0:	3c02bf88 	lui	v0,0xbf88
+9d0021d4:	8c434000 	lw	v1,16384(v0)
+9d0021d8:	24050002 	li	a1,2
+9d0021dc:	7ca31004 	ins	v1,a1,0x0,0x3
+9d0021e0:	ac434000 	sw	v1,16384(v0)
+
+  //enable prefetch for cacheable and noncacheable memory
+  CHECONbits.PREFEN = 0x3; 
+9d0021e4:	8c434000 	lw	v1,16384(v0)
+9d0021e8:	24040003 	li	a0,3
+9d0021ec:	7c832904 	ins	v1,a0,0x4,0x2
+9d0021f0:	ac434000 	sw	v1,16384(v0)
+
+  // 0 data RAM access wait states
+  BMXCONbits.BMXWSDRM = 0x0;
+9d0021f4:	3c02bf88 	lui	v0,0xbf88
+9d0021f8:	8c432000 	lw	v1,8192(v0)
+9d0021fc:	7c033184 	ins	v1,zero,0x6,0x1
+9d002200:	ac432000 	sw	v1,8192(v0)
+  
+  // enable multi vector interrupts
+  INTCONbits.MVEC = 0x1;
+9d002204:	3c02bf88 	lui	v0,0xbf88
+9d002208:	8c461000 	lw	a2,4096(v0)
+9d00220c:	24030001 	li	v1,1
+9d002210:	7c666304 	ins	a2,v1,0xc,0x1
+9d002214:	ac461000 	sw	a2,4096(v0)
+
+  // disable JTAG to get B10, B11, B12 and B13 back
+  DDPCONbits.JTAGEN = 0;
+9d002218:	3c02bf81 	lui	v0,0xbf81
+9d00221c:	9046f200 	lbu	a2,-3584(v0)
+9d002220:	7c0618c4 	ins	a2,zero,0x3,0x1
+9d002224:	a046f200 	sb	a2,-3584(v0)
+
+  TRISFCLR = 0x0003;  // Make F0 and F1 outputs (LED1 and LED2)
+9d002228:	3c02bf88 	lui	v0,0xbf88
+9d00222c:	ac446144 	sw	a0,24900(v0)
+  NU32_LED1 = 1;      // LED1 is off
+9d002230:	3c02bf88 	lui	v0,0xbf88
+9d002234:	90446160 	lbu	a0,24928(v0)
+9d002238:	7c640004 	ins	a0,v1,0x0,0x1
+9d00223c:	a0446160 	sb	a0,24928(v0)
+  NU32_LED2 = 0;      // LED2 is on
+9d002240:	90446160 	lbu	a0,24928(v0)
+9d002244:	7c040844 	ins	a0,zero,0x1,0x1
+9d002248:	a0446160 	sb	a0,24928(v0)
+
+  // turn on UART3 without an interrupt
+  U3MODEbits.BRGH = 0; // set baud to NU32_DESIRED_BAUD
+9d00224c:	3c02bf80 	lui	v0,0xbf80
+9d002250:	94446400 	lhu	a0,25600(v0)
+9d002254:	7c0418c4 	ins	a0,zero,0x3,0x1
+9d002258:	a4446400 	sh	a0,25600(v0)
+  U3BRG = ((NU32_SYS_FREQ / NU32_DESIRED_BAUD) / 16) - 1;
+9d00225c:	24060014 	li	a2,20
+9d002260:	3c04bf80 	lui	a0,0xbf80
+9d002264:	ac866440 	sw	a2,25664(a0)
+
+  // 8 bit, no parity bit, and 1 stop bit (8N1 setup)
+  U3MODEbits.PDSEL = 0;
+9d002268:	94446400 	lhu	a0,25600(v0)
+9d00226c:	7c041044 	ins	a0,zero,0x1,0x2
+9d002270:	a4446400 	sh	a0,25600(v0)
+  U3MODEbits.STSEL = 0;
+9d002274:	94446400 	lhu	a0,25600(v0)
+9d002278:	7c040004 	ins	a0,zero,0x0,0x1
+9d00227c:	a4446400 	sh	a0,25600(v0)
+
+  // configure TX & RX pins as output & input pins
+  U3STAbits.UTXEN = 1;
+9d002280:	3c04bf80 	lui	a0,0xbf80
+9d002284:	8c866410 	lw	a2,25616(a0)
+9d002288:	7c665284 	ins	a2,v1,0xa,0x1
+9d00228c:	ac866410 	sw	a2,25616(a0)
+  U3STAbits.URXEN = 1;
+9d002290:	8c866410 	lw	a2,25616(a0)
+9d002294:	7c666304 	ins	a2,v1,0xc,0x1
+9d002298:	ac866410 	sw	a2,25616(a0)
+  // configure hardware flow control using RTS and CTS
+  U3MODEbits.UEN = 2;
+9d00229c:	94446400 	lhu	a0,25600(v0)
+9d0022a0:	7ca44a04 	ins	a0,a1,0x8,0x2
+9d0022a4:	a4446400 	sh	a0,25600(v0)
+
+  // enable the uart
+  U3MODEbits.ON = 1;
+9d0022a8:	94446400 	lhu	a0,25600(v0)
+9d0022ac:	7c647bc4 	ins	a0,v1,0xf,0x1
+9d0022b0:	a4446400 	sh	a0,25600(v0)
+
+  __builtin_enable_interrupts();
+9d0022b4:	41626020 	ei	v0
+}
+9d0022b8:	8fbf0004 	lw	ra,4(sp)
+9d0022bc:	03e00008 	jr	ra
+9d0022c0:	27bd0008 	addiu	sp,sp,8
+
+9d0022c4 <NU32_ReadUART3>:
+// Read from UART3
+// block other functions until you get a '\r' or '\n'
+// send the pointer to your char array and the number of elements in the array
+void NU32_ReadUART3(char * message, int maxLength) {
+  char data = 0;
+  int complete = 0, num_bytes = 0;
+9d0022c4:	00003021 	move	a2,zero
+  // loop until you get a '\r' or '\n'
+  while (!complete) {
+    if (U3STAbits.URXDA) { // if data is available
+9d0022c8:	3c03bf80 	lui	v1,0xbf80
+      data = U3RXREG;      // read the data
+9d0022cc:	3c08bf80 	lui	t0,0xbf80
+      if ((data == '\n') || (data == '\r')) {
+9d0022d0:	2407000a 	li	a3,10
+9d0022d4:	0b4008c5 	j	9d002314 <NU32_ReadUART3+0x50>
+9d0022d8:	2409000d 	li	t1,13
+void NU32_ReadUART3(char * message, int maxLength) {
+  char data = 0;
+  int complete = 0, num_bytes = 0;
+  // loop until you get a '\r' or '\n'
+  while (!complete) {
+    if (U3STAbits.URXDA) { // if data is available
+9d0022dc:	8c626410 	lw	v0,25616(v1)
+9d0022e0:	30420001 	andi	v0,v0,0x1
+9d0022e4:	1040fffd 	beqz	v0,9d0022dc <NU32_ReadUART3+0x18>
+9d0022e8:	00000000 	nop
+      data = U3RXREG;      // read the data
+9d0022ec:	8d026430 	lw	v0,25648(t0)
+9d0022f0:	7c021420 	seb	v0,v0
+      if ((data == '\n') || (data == '\r')) {
+9d0022f4:	5047000e 	beql	v0,a3,9d002330 <NU32_ReadUART3+0x6c>
+9d0022f8:	00862021 	addu	a0,a0,a2
+9d0022fc:	1049000b 	beq	v0,t1,9d00232c <NU32_ReadUART3+0x68>
+9d002300:	00865021 	addu	t2,a0,a2
+        complete = 1;
+      } else {
+        message[num_bytes] = data;
+9d002304:	a1420000 	sb	v0,0(t2)
+        ++num_bytes;
+9d002308:	24c60001 	addiu	a2,a2,1
+        // roll over if the array is too small
+        if (num_bytes >= maxLength) {
+9d00230c:	00c5102a 	slt	v0,a2,a1
+          num_bytes = 0;
+9d002310:	0002300a 	movz	a2,zero,v0
+void NU32_ReadUART3(char * message, int maxLength) {
+  char data = 0;
+  int complete = 0, num_bytes = 0;
+  // loop until you get a '\r' or '\n'
+  while (!complete) {
+    if (U3STAbits.URXDA) { // if data is available
+9d002314:	8c626410 	lw	v0,25616(v1)
+9d002318:	30420001 	andi	v0,v0,0x1
+9d00231c:	1040ffef 	beqz	v0,9d0022dc <NU32_ReadUART3+0x18>
+9d002320:	00000000 	nop
+9d002324:	0b4008bb 	j	9d0022ec <NU32_ReadUART3+0x28>
+9d002328:	00000000 	nop
+        }
+      }
+    }
+  }
+  // end the string
+  message[num_bytes] = '\0';
+9d00232c:	00862021 	addu	a0,a0,a2
+9d002330:	03e00008 	jr	ra
+9d002334:	a0800000 	sb	zero,0(a0)
+
+9d002338 <NU32_WriteUART3>:
+}
+
+// Write a character array using UART3
+void NU32_WriteUART3(const char * string) {
+  while (*string != '\0') {
+9d002338:	80850000 	lb	a1,0(a0)
+9d00233c:	10a0000b 	beqz	a1,9d00236c <NU32_WriteUART3+0x34>
+9d002340:	3c03bf80 	lui	v1,0xbf80
+    while (U3STAbits.UTXBF) {
+      ; // wait until tx buffer isn't full
+    }
+    U3TXREG = *string;
+9d002344:	3c06bf80 	lui	a2,0xbf80
+}
+
+// Write a character array using UART3
+void NU32_WriteUART3(const char * string) {
+  while (*string != '\0') {
+    while (U3STAbits.UTXBF) {
+9d002348:	8c626410 	lw	v0,25616(v1)
+9d00234c:	30420200 	andi	v0,v0,0x200
+9d002350:	1440fffd 	bnez	v0,9d002348 <NU32_WriteUART3+0x10>
+9d002354:	00000000 	nop
+      ; // wait until tx buffer isn't full
+    }
+    U3TXREG = *string;
+9d002358:	acc56420 	sw	a1,25632(a2)
+    ++string;
+9d00235c:	24840001 	addiu	a0,a0,1
+  message[num_bytes] = '\0';
+}
+
+// Write a character array using UART3
+void NU32_WriteUART3(const char * string) {
+  while (*string != '\0') {
+9d002360:	80850000 	lb	a1,0(a0)
+9d002364:	14a0fff8 	bnez	a1,9d002348 <NU32_WriteUART3+0x10>
+9d002368:	00000000 	nop
+9d00236c:	03e00008 	jr	ra
+9d002370:	00000000 	nop
+
+Disassembly of section .text.general_exception:
+
+9d002374 <_general_exception_context>:
+9d002374:	27bdffa8 	addiu	sp,sp,-88
+9d002378:	afa10004 	sw	at,4(sp)
+9d00237c:	afa20008 	sw	v0,8(sp)
+9d002380:	afa3000c 	sw	v1,12(sp)
+9d002384:	afa40010 	sw	a0,16(sp)
+9d002388:	afa50014 	sw	a1,20(sp)
+9d00238c:	afa60018 	sw	a2,24(sp)
+9d002390:	afa7001c 	sw	a3,28(sp)
+9d002394:	afa80020 	sw	t0,32(sp)
+9d002398:	afa90024 	sw	t1,36(sp)
+9d00239c:	afaa0028 	sw	t2,40(sp)
+9d0023a0:	afab002c 	sw	t3,44(sp)
+9d0023a4:	afac0030 	sw	t4,48(sp)
+9d0023a8:	afad0034 	sw	t5,52(sp)
+9d0023ac:	afae0038 	sw	t6,56(sp)
+9d0023b0:	afaf003c 	sw	t7,60(sp)
+9d0023b4:	afb80040 	sw	t8,64(sp)
+9d0023b8:	afb90044 	sw	t9,68(sp)
+9d0023bc:	afbf0048 	sw	ra,72(sp)
+9d0023c0:	00004012 	mflo	t0
+9d0023c4:	afa8004c 	sw	t0,76(sp)
+9d0023c8:	00004010 	mfhi	t0
+9d0023cc:	afa80050 	sw	t0,80(sp)
+9d0023d0:	3c1a9d00 	lui	k0,0x9d00
+9d0023d4:	275a24ec 	addiu	k0,k0,9452
+9d0023d8:	00000000 	nop
+9d0023dc:	40046800 	mfc0	a0,c0_cause
+9d0023e0:	40056000 	mfc0	a1,c0_status
+9d0023e4:	0340f809 	jalr	k0
+9d0023e8:	00000000 	nop
+9d0023ec:	8fa80050 	lw	t0,80(sp)
+9d0023f0:	01000011 	mthi	t0
+9d0023f4:	8fa8004c 	lw	t0,76(sp)
+9d0023f8:	01000013 	mtlo	t0
+9d0023fc:	8fa10004 	lw	at,4(sp)
+9d002400:	8fa20008 	lw	v0,8(sp)
+9d002404:	8fa3000c 	lw	v1,12(sp)
+9d002408:	8fa40010 	lw	a0,16(sp)
+9d00240c:	8fa50014 	lw	a1,20(sp)
+9d002410:	8fa60018 	lw	a2,24(sp)
+9d002414:	8fa7001c 	lw	a3,28(sp)
+9d002418:	8fa80020 	lw	t0,32(sp)
+9d00241c:	8fa90024 	lw	t1,36(sp)
+9d002420:	8faa0028 	lw	t2,40(sp)
+9d002424:	8fab002c 	lw	t3,44(sp)
+9d002428:	8fac0030 	lw	t4,48(sp)
+9d00242c:	8fad0034 	lw	t5,52(sp)
+9d002430:	8fae0038 	lw	t6,56(sp)
+9d002434:	8faf003c 	lw	t7,60(sp)
+9d002438:	8fb80040 	lw	t8,64(sp)
+9d00243c:	8fb90044 	lw	t9,68(sp)
+9d002440:	8fbf0048 	lw	ra,72(sp)
+9d002444:	27bd0058 	addiu	sp,sp,88
+9d002448:	000000c0 	ehb
+9d00244c:	42000018 	eret
+
+Disassembly of section .text.main_entry:
+
+9d002450 <_main_entry>:
+9d002450:	3c040000 	lui	a0,0x0
+9d002454:	27bdffe8 	addiu	sp,sp,-24
+9d002458:	24840000 	addiu	a0,a0,0
+9d00245c:	10800003 	beqz	a0,9d00246c <_main_entry+0x1c>
+9d002460:	afbf0014 	sw	ra,20(sp)
+9d002464:	0080f809 	jalr	a0
+9d002468:	00000000 	nop
+9d00246c:	30840000 	andi	a0,a0,0x0
+9d002470:	30a50000 	andi	a1,a1,0x0
+9d002474:	3c089d00 	lui	t0,0x9d00
+9d002478:	25081f40 	addiu	t0,t0,8000
+9d00247c:	0100f809 	jalr	t0
+9d002480:	00000000 	nop
+
+9d002484 <__crt0_exit>:
+9d002484:	3c020000 24420000 10400003 00000000     ...<..B$..@.....
+9d002494:	0040f809 00000000 1000fff9 00000000     ..@.............
+
+Disassembly of section .text._bootstrap_exception_handler:
+
+9d0024a4 <_bootstrap_exception_handler>:
+9d0024a4:	3c020000 	lui	v0,0x0
+9d0024a8:	24420000 	addiu	v0,v0,0
+9d0024ac:	10400005 	beqz	v0,9d0024c4 <_bootstrap_exception_handler+0x20>
+9d0024b0:	3c020000 	lui	v0,0x0
+9d0024b4:	24420000 	addiu	v0,v0,0
+9d0024b8:	10400003 	beqz	v0,9d0024c8 <_bootstrap_exception_handler+0x24>
+9d0024bc:	3c029d00 	lui	v0,0x9d00
+9d0024c0:	7000003f 	sdbbp
+9d0024c4:	3c029d00 	lui	v0,0x9d00
+9d0024c8:	2442257c 	addiu	v0,v0,9596
+9d0024cc:	10400005 	beqz	v0,9d0024e4 <_bootstrap_exception_handler+0x40>
+9d0024d0:	00000000 	nop
+9d0024d4:	27bdffe8 	addiu	sp,sp,-24
+9d0024d8:	afbf0014 	sw	ra,20(sp)
+9d0024dc:	0040f809 	jalr	v0
+9d0024e0:	00000000 	nop
+9d0024e4:	0b400939 	j	9d0024e4 <_bootstrap_exception_handler+0x40>
+9d0024e8:	00000000 	nop
+
+Disassembly of section .text._general_exception_handler:
+
+9d0024ec <_general_exception_handler>:
+9d0024ec:	3c020000 	lui	v0,0x0
+9d0024f0:	24420000 	addiu	v0,v0,0
+9d0024f4:	10400005 	beqz	v0,9d00250c <_general_exception_handler+0x20>
+9d0024f8:	3c020000 	lui	v0,0x0
+9d0024fc:	24420000 	addiu	v0,v0,0
+9d002500:	10400003 	beqz	v0,9d002510 <_general_exception_handler+0x24>
+9d002504:	3c029d00 	lui	v0,0x9d00
+9d002508:	7000003f 	sdbbp
+9d00250c:	3c029d00 	lui	v0,0x9d00
+9d002510:	2442257c 	addiu	v0,v0,9596
+9d002514:	10400005 	beqz	v0,9d00252c <_general_exception_handler+0x40>
+9d002518:	00000000 	nop
+9d00251c:	27bdffe8 	addiu	sp,sp,-24
+9d002520:	afbf0014 	sw	ra,20(sp)
+9d002524:	0040f809 	jalr	v0
+9d002528:	00000000 	nop
+9d00252c:	0b40094b 	j	9d00252c <_general_exception_handler+0x40>
+9d002530:	00000000 	nop
+
+Disassembly of section .vector_default:
+
+9d002534 <_DefaultInterrupt>:
+9d002534:	3c020000 	lui	v0,0x0
+9d002538:	24420000 	addiu	v0,v0,0
+9d00253c:	10400007 	beqz	v0,9d00255c <_DefaultInterrupt+0x28>
+9d002540:	3c020000 	lui	v0,0x0
+9d002544:	24420000 	addiu	v0,v0,0
+9d002548:	50400005 	beqzl	v0,9d002560 <_DefaultInterrupt+0x2c>
+9d00254c:	3c029d00 	lui	v0,0x9d00
+9d002550:	7000003f 	sdbbp
+9d002554:	03e00008 	jr	ra
+9d002558:	00000000 	nop
+9d00255c:	3c029d00 	lui	v0,0x9d00
+9d002560:	2442257c 	addiu	v0,v0,9596
+9d002564:	10400003 	beqz	v0,9d002574 <_DefaultInterrupt+0x40>
+9d002568:	00000000 	nop
+9d00256c:	0040f809 	jalr	v0
+9d002570:	00000000 	nop
+9d002574:	03e00008 	jr	ra
+9d002578:	00000000 	nop
+
+Disassembly of section .text:
+
+9d00257c <__pic32_software_reset>:
+9d00257c:	41606000 	di
+9d002580:	000000c0 	ehb
+9d002584:	3c03aa99 	lui	v1,0xaa99
+9d002588:	3c02bf81 	lui	v0,0xbf81
+9d00258c:	24636655 	addiu	v1,v1,26197
+9d002590:	ac40f230 	sw	zero,-3536(v0)
+9d002594:	ac43f230 	sw	v1,-3536(v0)
+9d002598:	3c035566 	lui	v1,0x5566
+9d00259c:	346399aa 	ori	v1,v1,0x99aa
+9d0025a0:	ac43f230 	sw	v1,-3536(v0)
+9d0025a4:	3c02bf81 	lui	v0,0xbf81
+9d0025a8:	24030001 	li	v1,1
+9d0025ac:	ac43f618 	sw	v1,-2536(v0)
+9d0025b0:	3c02bf81 	lui	v0,0xbf81
+9d0025b4:	8c42f610 	lw	v0,-2544(v0)
+9d0025b8:	0b400961 	j	9d002584 <__pic32_software_reset+0x8>
+9d0025bc:	00000000 	nop
+
+9d0025c0 <_nmi_handler>:
+9d0025c0:	401a6000 	mfc0	k0,c0_status
+9d0025c4:	3c1bffbf 	lui	k1,0xffbf
+9d0025c8:	377bffff 	ori	k1,k1,0xffff
+9d0025cc:	035bd024 	and	k0,k0,k1
+9d0025d0:	409a6000 	mtc0	k0,c0_status
+9d0025d4:	42000018 	eret
+
+Disassembly of section .dinit:
+
+9d0025d8 <.dinit>:
+9d0025d8:	a0000000 	sb	zero,0(zero)
+9d0025dc:	00000010 	mfhi	zero
+	...
+
+Disassembly of section .text._on_reset:
+
+9d0025e8 <_on_reset>:
+9d0025e8:	03e00008 	jr	ra
+9d0025ec:	00000000 	nop
+
+Disassembly of section .text._on_bootstrap:
+
+9d0025f0 <_on_bootstrap>:
+9d0025f0:	03e00008 	jr	ra
+9d0025f4:	00000000 	nop
